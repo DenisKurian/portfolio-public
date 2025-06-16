@@ -1,0 +1,230 @@
+{% extends "core/base.html" %}
+{% block title %}Home - Portfolio{% endblock %}
+{% load static %}
+
+{% load custom_filters %}
+{% block content %}
+
+<!-- Hero Section -->
+<section id="home" class="py-5 min-vh-100 d-flex flex-column align-items-center justify-content-center text-center" data-bs-spy="scroll" data-bs-target="#navbar">
+    <div class="image mb-4" data-aos="fade-up">
+        <img src="{{ MEDIA_URL }}Denis-profile.jpg" alt="Profile" class="rounded-circle" style="width: 200px; height: 200px; object-fit: cover;">
+    </div>
+    <div>
+        <h1 data-aos="fade-up">Denis Kurian Deepu</h1>
+        <!-- <h3 data-aos="fade-up">Welcome to My Portfolio</h3> -->
+        <p data-aos="fade-up" data-aos-delay="200">Scroll to explore</p>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-5 min-vh-100 container" data-aos="fade-up">
+  <h2>About Me</h2>
+  <p>This section contains a short bio and intro.</p>
+  <div class="card shadow-sm p-3 h-100 text-center" data-aos="fade-up">
+    <p> Motivated and ambitious fresher pursuing a B.Tech in Computer Science and Engineering, with a strong 
+desire to make a significant impact in the field of computer science. Proficient in project design, 
+management, and development, constantly striving to contribute innovative ideas to advance the industry. 
+Demonstrates exceptional organizational skills and reliability, effectively managing multiple priorities with a 
+positive attitude. Proven track record of exceeding team goals, displaying a willingness to take on additional 
+responsibilities. Dedicated and passionate job seeker seeking an entry-level Software Developer position, 
+eager to utilize strong organizational skills to help the team achieve company objectives.</p>
+  </div>
+</section>
+
+<!-- EDUCATION Section -->
+<section id="education" class="glass-section py-5">
+  <h2 class="section-title text-center mb-4">Education</h2>
+  <div class="timeline">
+    <div class="timeline-item" data-aos="fade-right">
+      <h4>Bachelor of Technology in Computer Science and Engineering</h4>
+      <span class="location">Viswajyothi College of Engineering and Technology, Vazhakulam, Kerala, India</span>
+      <span class="time">05/2022 – Current</span>
+      <p>Completed Sixth Semester. CGPA: 7.75 (Till 5th Semester)<br>Minor Degree in Electronics and Communication Engineering.</p>
+    </div>
+    <div class="timeline-item" data-aos="fade-left">
+      <h4>Higher Secondary & School Education</h4>
+      <span class="location">Nirmala Public School, Muvattupuzha, Kerala, India</span>
+      <span class="time">01/2007 – 01/2022</span>
+      <p>Kindergarten to Higher Secondary completed at a single institution.</p>
+    </div>
+  </div>
+</section>
+
+
+
+
+  
+<!-- Skills Section -->
+<section id="skills" class="py-5 min-vh-100 container" data-aos="fade-up">
+  <h2>Skills</h2>
+  <div class="row">
+    {% for skill in skills %}
+      <div class="col-6 col-md-4 mb-3">
+        <div class="card shadow-sm p-3 h-100 text-center" data-aos="fade-up">
+          <h5 class="card-title">{{ emoji_map|get_item:skill.title|default:"" }} {{ skill.title }}</h5>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+<!--Resume section-->
+<section id="resume" class="py-5 container text-center">
+  <h1 class="mb-4">My Resume</h1>
+  <div class="resume-glass shadow-lg rounded-4 mx-auto" style="max-width: 900px;">
+  {% if resume %}
+    <div class="embed-responsive" style="height: 90vh;">
+    <iframe
+   src="/media/resumes/Denis-Kurian-Deepu-CV.pdf"
+  height="700px"
+  style="border: 1px solid #ccc;">
+</iframe>
+
+  </div>
+    <div class="text-center mt-3">
+      <a href="/media/resumes/Denis-Kurian-Deepu-CV.pdf" class="resume-download-btn" download>
+        <i class="bi bi-download"></i> Download Resume
+      </a>
+    </div>
+
+  {% else %}
+    <p>No resume uploaded yet.</p>
+  {% endif %}
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="py-5 min-vh-100 container" data-aos="fade-up">
+  <h2>Projects</h2>
+
+  <div class="glide position-relative my-5">
+
+  <!-- Track -->
+  <div class="glide__track" data-glide-el="track">
+    <ul class="glide__slides">
+      {% for project in projects %}
+      <li class="glide__slide d-flex justify-content-center">
+        <div class="card shadow-sm w-100" style="max-width: 280px;">
+          
+          {% if project.image %}
+          <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ project.title }}</h5>
+            <p class="card-text">{{ project.description|truncatewords:5 }}</p>
+            {% if project.link %}
+            <a href="{{ project.link }}" class="btn btn-primary">View</a>
+            
+            {% endif %}<div class="mt-auto">
+            {% if project.live_demo_url %}
+            <a href="{{ project.live_demo_url }}" target="_blank" class="btn btn-primary btn-sm">Live Demo</a>
+            {% endif %}
+            {% if project.source_code_url %}
+            <a href="{{ project.source_code_url }}" target="_blank" class="btn btn-outline-secondary btn-sm">Source Code</a>
+            
+            {% endif %}
+            
+              <a href="{% url 'project_detail' project.slug %}" class="btn btn-outline-primary btn-sm">View</a>
+          </div>
+          
+            
+          </div>
+          
+        </div>
+        
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Arrows -->
+  <div data-glide-el="controls">
+    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">‹</button>
+    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">›</button>
+  </div>
+
+  <!-- Pagination Dots -->
+  <div class="glide__bullets text-center mt-4" data-glide-el="controls[nav]">
+    {% for project in projects %}
+    <button class="glide__bullet" data-glide-dir="={{ forloop.counter0 }}"></button>
+    {% endfor %}
+  </div>
+</div>
+
+</section>
+
+<!--Certificates-->
+<section id="certificates" class="py-5 min-vh-100 container" data-aos="fade-up">
+  <h1 class="mb-4 text-center">Certificates</h1>
+  <div class="glide" id="certificatesCarousel">
+    <div class="glide__track" data-glide-el="track">
+      <ul class="glide__slides">
+        {% for cerf in certificates %}
+        <li class="glide__slide">
+          <div class="card h-100" data-aos="zoom-in">
+            {% if cerf.file %}
+              {% if cerf.file|is_pdf %}
+                {% with thumbnail_url=cerf.get_or_generate_thumbnail %}
+                  {% if thumbnail_url %}
+                    <img src="{{ thumbnail_url }}" class="card-img-top" alt="{{ cerf.title }}">
+                  {% endif %}
+                {% endwith %}
+              {% else %}
+                <img src="{{ cerf.file.url }}" class="card-img-top" alt="{{ cerf.title }}">
+              {% endif %}
+            {% endif %}
+
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ cerf.title }}</h5>
+               <div>
+            <a href="{{ cerf.file.url }}" class="btn btn-outline-primary mt-auto" target="_blank">
+                View Full
+              </a>
+            </div>
+            </div>
+           
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="glide__arrows" data-glide-el="controls">
+      <button class="glide__arrow glide__arrow--left" data-glide-dir="<">‹</button>
+      <button class="glide__arrow glide__arrow--right" data-glide-dir=">">›</button>
+    </div>
+  </div>
+</section>
+
+
+<!-- Contact Section -->
+<section id="contact" class="py-5 min-vh-100 container" data-aos="fade-up">
+  <h1 class="mb-4 text-center">Contact Me</h1>
+  <div class="row justify-content-center">
+    <div class="col-md-6 contact-box">
+      <ul class="list-group list-group-flush mb-4">
+        <li class="list-group-item">📞 Phone: <a href="tel:+918848146260">+91 8848146260</a></li>
+        <li class="list-group-item">📧 Email: <a href="mailto:deniskuriandeepu@gmail.com">deniskuriandeepu@gmail.com</a></li>
+        <li class="list-group-item">📍 Location: Valiamattathil(H), East Marady, Muvattupuzha, Ernakulam, Kerala, India</li>
+        <li class="list-group-item">🔢 Pin Code: <a href="PinCode:686673">686673</a></li>
+      </ul>
+      <h5 class="text-center">Socials</h5>
+      <div class="d-flex justify-content-center gap-4 mt-3">
+        <a href="https://github.com/DenisKurian" target="_blank" aria-label="GitHub">
+          <i class="bi bi-github fs-4"></i>
+        </a>
+        <a href="http://www.linkedin.com/in/denis-kurian-deepu-60a9ab25b" target="_blank" aria-label="LinkedIn">
+          <i class="bi bi-linkedin fs-4"></i>
+        </a>
+        <!--<a href="https://twitter.com/yourprofile" target="_blank" aria-label="Twitter">
+          <i class="bi bi-twitter fs-4"></i>
+        </a>-->
+        <a href="https://www.instagram.com/deniskuriandeepu?igsh=MWlnZmdldWJuOGtqYQ==" target="_blank" aria-label="Instagram">
+          <i class="bi bi-instagram fs-4"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}
