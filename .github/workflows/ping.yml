@@ -1,0 +1,14 @@
+name: Keep Render Site Awake
+
+on:
+  schedule:
+    - cron: '*/14 * * * *'  # every 14 minutes
+  workflow_dispatch:
+
+jobs:
+  ping-site:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Curl the Render site
+        run: curl -s https://deniskuriandeepu-portfolio.onrender.com > /dev/null
