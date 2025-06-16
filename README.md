@@ -34,5 +34,5 @@ Built with **Django**, deployed on **Render**, and designed for both dark and li
 
 1. **Clone this repo**
    ```bash
-   git clone https://github.com/yo/portfolio-public.git
+   git clone https://github.com/DenisKurian/portfolio-public.git
    cd portfolio-site
