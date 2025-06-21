@@ -1,4 +1,4 @@
-name: Keep Render Site Awake
+name: Keep Render Sites Awake
 
 on:
   schedule:
@@ -10,8 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Curl the Render site
+      - name: Curl portfolio site
         run: curl -s https://deniskuriandeepu-portfolio.onrender.com > /dev/null
-        
-      - name: Curl toolshare site 
+
+      - name: Curl toolshare site
         run: curl -s https://toolshare-7lhe.onrender.com > /dev/null
+
