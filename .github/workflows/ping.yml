@@ -12,3 +12,6 @@ jobs:
     steps:
       - name: Curl the Render site
         run: curl -s https://deniskuriandeepu-portfolio.onrender.com > /dev/null
+        
+      - name: Curl toolshare site 
+        run: curl -s https://toolshare-7lhe.onrender.com > /dev/null
