@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  ping-site:
+  ping-sites:
     runs-on: ubuntu-latest
 
     steps:
