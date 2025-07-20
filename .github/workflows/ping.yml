@@ -2,7 +2,7 @@ name: Keep Render Sites Awake
 
 on:
   schedule:
-    - cron: '*/14 * * * *'  # every 14 minutes
+    - cron: '*/14 1-17 * * *'  # Every 15 mins from 7 AM to 11 PM IST
   workflow_dispatch:
 
 jobs:
@@ -10,9 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Curl portfolio site
-        run: curl -s https://deniskuriandeepu-portfolio.onrender.com > /dev/null
+      - name: Ping Portfolio site
+        run: curl -s https://deniskuriandeepu-portfolio.onrender.com/ping > /dev/null
 
-      - name: Curl toolshare site
-        run: curl -s https://toolshare-7lhe.onrender.com > /dev/null
+      - name: Ping ToolShare site
+        run: curl -s https://toolshare-7lhe.onrender.com/ping > /dev/null
+
 
