@@ -1,19 +1,19 @@
-name: Keep Render Sites Awake
+# name: Keep Render Sites Awake
 
-on:
-  schedule:
-    - cron: '*/14 1-17 * * *'  # Every 15 mins from 7 AM to 11 PM IST
-  workflow_dispatch:
+# on:
+#   schedule:
+#     - cron: '*/14 1-17 * * *'  # Every 15 mins from 7 AM to 11 PM IST
+#   workflow_dispatch:
 
-jobs:
-  ping-sites:
-    runs-on: ubuntu-latest
+# jobs:
+#   ping-sites:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Ping Portfolio site
-        run: curl -s https://deniskuriandeepu-portfolio.onrender.com/ping > /dev/null
+#     steps:
+#       - name: Ping Portfolio site
+#         run: curl -s https://deniskuriandeepu-portfolio.onrender.com/ping > /dev/null
 
-      - name: Ping ToolShare site
-        run: curl -s https://toolshare-7lhe.onrender.com/ping > /dev/null
+#       - name: Ping ToolShare site
+#         run: curl -s https://toolshare-7lhe.onrender.com/ping > /dev/null
 
 
